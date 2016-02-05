@@ -1,23 +1,22 @@
-var gridWidth = 2;
-var gridHeight = 2;
-var totalSolves = 0;
+var gridWidth = 20;
+var gridHeight = 20;
 
-function move(x, y, z){
-  z++;
-  if (x == gridWidth && y == gridHeight){
-    totalSolves++;
-    return;
-  }
-  if (x < gridWidth){
-    console.log("right - " + z);
-    move(++x, y, z);
-  }
-  if (y< gridHeight){
-    console.log("down - " + z);
-    move(x, ++y,z);
-  }
+var rowA = [];
+var rowB = [];
+
+for (x=0; x<=gridWidth; x++){
+  rowA.push(1);
 }
 
-move(0,0,0);
-console.log("AND:");
-console.log(totalSolves);
+for (gridHeight; gridHeight>0; gridHeight--){
+
+  rowB.push(1);
+
+  for (x=1; x<=gridWidth; x++){
+    rowB.push(rowA[x] + rowB[x-1]);
+  }
+  
+  rowA = rowB;
+  rowB = [];
+}
+console.log(rowA[rowA.length-1]);
